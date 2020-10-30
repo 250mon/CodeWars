@@ -3,7 +3,7 @@ def move_zeros(array):
     return sorted(new, key=lambda x: str(x) == '0' if not isinstance(x, str) else False)
 
 
-#instance()
+#isinstance()
 # def move_zeros(arr):
 #     l = [i for i in arr if isinstance(i, bool) or i != 0]
 #     return l + [0] * (len(arr) - len(l))
