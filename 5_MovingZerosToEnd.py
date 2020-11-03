@@ -3,18 +3,18 @@ def move_zeros(array):
     return sorted(new, key=lambda x: str(x) == '0' if not isinstance(x, str) else False)
 
 
-#isinstance()
+"""isinstance()"""
 # def move_zeros(arr):
 #     l = [i for i in arr if isinstance(i, bool) or i != 0]
 #     return l + [0] * (len(arr) - len(l))
 
 
-#type()
+"""type()"""
 # def move_zeros(array):
 #     return sorted(array, key=lambda x: x == 0 and type(x) is not bool)
 
 
-#False is 0
+"""False is 0"""
 # def move_zeros(array):
 #     return sorted(array, key=lambda x: x == 0 and x is not False)
 

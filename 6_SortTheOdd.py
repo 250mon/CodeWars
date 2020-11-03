@@ -14,25 +14,25 @@ def sort_array(source_array):
     return [x if x != 'a' else odd_arr.pop() for x in temp_arr]
 
 
-#deque()
+"""deque()"""
 # def sort_array(array):
 #     odd = deque(sorted(x for x in array if x % 2))
 #     return [odd.popleft() if x % 2 else x for x in array]
 
 
-#sorted()
+"""sorted()"""
 # def sort_array(arr):
 #     odds = sorted((x for x in arr if x % 2 != 0), reverse=True)
 #     return [x if x % 2 == 0 else odds.pop() for x in arr]
 
 
-#iter()
+"""iter()"""
 # def sort_array(source_array):
 #     odds = iter(sorted(v for v in source_array if v % 2))
 #     return [next(odds) if i % 2 else i for i in source_array]
 
 
-#enumerate()
+"""enumerate()"""
 # def sort_array(source_array):
 #     result = sorted([l for l in source_array if l % 2 == 1])
 #     for index, item in enumerate(source_array):

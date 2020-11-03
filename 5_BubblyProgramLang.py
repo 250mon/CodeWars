@@ -51,9 +51,6 @@ def end():
 #         return self
 
 
-
-
-
 if __name__ == '__main__':
     print((start)(push)(2)(push)(5)(div)(push)(3)(push)(8)(mul)(mul)(end))
 

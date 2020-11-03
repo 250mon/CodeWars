@@ -7,12 +7,12 @@ def arr(*n):
     return list(range(0, x))
 
 
-#default argument value
+"""default argument valuei"""
 # def arr(n=0):
 #     return list(range(n))
 
 
-#unpacking range generator
+"""unpacking range generator"""
 # def arr(n=0):
 #     return [*range(n)]
 

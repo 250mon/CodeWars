@@ -1,5 +1,5 @@
+"""My Solution"""
 def sum_pow_dig_seq(start, n, k):
-    """My Solution"""
     seq_list = [start]
     h, patt_len, last_term = 0, 0, 0
 
@@ -25,8 +25,8 @@ def sum_pow(num, n):
     return ((num % 10) ** n) + sum_pow(num // 10, n)
 
 
+"""Good Solution using 'in' list"""
 def sum_pow_dig_seq2(start, n, k):
-    """Good Solution"""
     seq = [start]
     num = start
     for i in range(k):
