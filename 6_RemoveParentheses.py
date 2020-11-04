@@ -33,8 +33,6 @@ def remove_parentheses(s):
 
 
 if __name__ == '__main__':
-    s = "my name is (so(ng) jye young"
+    s = "my name is (so(ng)) jye young"
     result1 = remove_parentheses(s)
-    result2 = remove_parentheses2(s)
     print(result1)
-    print(result2)
