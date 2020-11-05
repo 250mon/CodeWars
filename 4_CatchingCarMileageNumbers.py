@@ -25,7 +25,7 @@ def is_interesting(number, awesome_phrases):
 
     return 0
 
-
+"""[::-1], set, zip, any"""
 # def is_incrementing(number): return str(number) in '1234567890'
 # def is_decrementing(number): return str(number) in '9876543210'
 # def is_palindrome(number):   return str(number) == str(number)[::-1]
@@ -38,6 +38,7 @@ def is_interesting(number, awesome_phrases):
 #     return 0
 
 
+"""zip"""
 # def is_interesting(number, awesome_phrases):
 #     for r, num in zip((2, 1, 1), range(number, number + 3)):
 #         num_str = str(num)
@@ -46,6 +47,7 @@ def is_interesting(number, awesome_phrases):
 #     return 0
 
 
+"""all, [::-1], zip"""
 # def is_interesting(number, awesome_phrases):
 #     def check(n):
 #         nonlocal awesome_phrases
