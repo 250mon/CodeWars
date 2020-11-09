@@ -26,7 +26,7 @@ def sum_of_intervals(intervals):
 #     return sum
 
 
-"""for inside for"""
+"""A for expression inside a for statement within list comprehension"""
 # def sum_of_intervals(intervals):
 #     t_set = set([n for (a, b) in intervals for n in [i for i in range(a, b)]])
 #     return len(t_set)

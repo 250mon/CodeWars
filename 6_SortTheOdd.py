@@ -14,13 +14,13 @@ def sort_array(source_array):
     return [x if x != 'a' else odd_arr.pop() for x in temp_arr]
 
 
-"""deque()"""
+"""deque(), Q.popleft()"""
 # def sort_array(array):
 #     odd = deque(sorted(x for x in array if x % 2))
 #     return [odd.popleft() if x % 2 else x for x in array]
 
 
-"""sorted()"""
+"""sorted(arr, reverse=True)"""
 # def sort_array(arr):
 #     odds = sorted((x for x in arr if x % 2 != 0), reverse=True)
 #     return [x if x % 2 == 0 else odds.pop() for x in arr]
