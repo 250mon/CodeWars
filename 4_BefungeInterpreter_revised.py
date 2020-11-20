@@ -4,13 +4,10 @@ import random
 class Befunge:
 
     def __init__(self, code):
-        self.code = code
-        self.code_characters = []
+        self.code_characters = list(map(list, str.splitlines(code)))
         self.stack = []
         self.x = 0
         self.y = 0
-        self.x_max = 0
-        self.y_max = 0
         self.x_right = True
         self.y_down = True
         self.move_hor = True
@@ -27,12 +24,6 @@ class Befunge:
             '`': lambda a, b: int(b > a),
         }
 
-    def extract_code_characters(self):
-        lines = self.code.splitlines()
-        self.x_max = max(map(len, lines))
-        self.y_max = len(lines)
-        self.code_characters = list(map(list, lines))
-
     def operation(self, op):
         a, b = self.stack.pop(), self.stack.pop()
         self.stack.append(op(a, b))
@@ -47,40 +38,31 @@ class Befunge:
         elif direction == 'v':
             self.move_hor = False
             self.y_down = True
-        else:
+        elif direction == '^':
             self.move_hor = False
             self.y_down = False
+        # direction '?'
+        else:
+            self.set_direction(random.choice(['>', '<', 'v', '^']))
 
     def move_to_next(self):
         # Move the pointer
         if self.move_hor:
             if self.x_right:
-                self.x = self.x + 1
-                if self.x == self.x_max:
-                    self.x = 0
-                    self.y = self.y + 1 if self.y < self.y_max else 0
+                self.x = (self.x + 1) % len(self.code_characters[self.y])
             else:
                 self.x = self.x - 1
-                if self.x == -1:
-                    self.x = self.x_max - 1
-                    self.y = self.y - 1 if self.y > 0 else self.y_max - 1
         else:
             if self.y_down:
-                self.y = self.y + 1
-                if self.y == self.y_max:
-                    self.y = 0
-                    self.x = self.x + 1 if self.x < self.x_max else 0
+                self.y = (self.y + 1) % len(self.code_characters)
             else:
                 self.y = self.y - 1
-                if self.y == -1:
-                    self.y = self.y_max - 1
-                    self.x = self.x - 1 if self.x > 0 else self.x_max - 1
 
     def interpret_instructions(self, inst):
         if self.skip:
             self.skip = False
         elif self.ascii_mode and inst != '"':
-            self.stack.append(int.from_bytes(bytes(inst, encoding='utf-8'), byteorder='big'))
+            self.stack.append(ord(inst))
         elif inst.isdigit():
             self.stack.append(int(inst))
         elif inst in '+-*/%`':
@@ -89,10 +71,8 @@ class Befunge:
         elif inst == '!':
             if self.stack.pop(): self.stack.append(0)
             else: self.stack.append(1)
-        elif inst in '><v^':
+        elif inst in '><v^?':
             self.set_direction(inst)
-        elif inst == '?':
-            self.set_direction(random.choice(['>', '<', 'v', '^']))
         elif inst == '_':
             a = self.stack.pop()
             if a == 0:
@@ -129,34 +109,24 @@ class Befunge:
         elif inst == '.':
             self.output.append(str(self.stack.pop()))
         elif inst == ',':
-            # a is supposed to be a ASCII byte
-            a = self.stack.pop()
-            # if a is an int type, convert it to a ASCII byte
-            if isinstance(a, int): a = a.to_bytes(1, byteorder='big')
-
-            # Converting the ASCII code to a character for output
-            self.output.append(a.decode(encoding="utf-8"))
+            self.output.append(chr(self.stack.pop()))
         elif inst == '#':
             self.skip = True
         elif inst == 'p':
             y, x, v = self.stack.pop(), self.stack.pop(), self.stack.pop()
-            # Converting the ASCII code to a character
-            self.code_characters[y][x] = v.to_bytes(1, byteorder='big').decode(encoding="utf-8")
+            self.code_characters[y][x] = chr(v)
         elif inst == 'g':
             y, x = self.stack.pop(), self.stack.pop()
-            # Converting the character to an ASCII code
-            self.stack.append(int.from_bytes(bytes(self.code_characters[y][x], encoding="utf-8"), byteorder='big'))
+            self.stack.append(ord(self.code_characters[y][x]))
         elif inst == '@':
             self.run = False
         else:
             pass
 
     def walk_through(self):
-        self.extract_code_characters()
         while self.run:
-            if self.x < len(self.code_characters[self.y]):
-                code_ch = self.code_characters[self.y][self.x]
-                self.interpret_instructions(code_ch)
+            code_ch = self.code_characters[self.y][self.x]
+            self.interpret_instructions(code_ch)
             self.move_to_next()
 
 
@@ -175,11 +145,11 @@ if __name__ == '__main__':
     ]
     code3_arr = [
         'v>>>>>v',
-        ' 12345',
-        ' ^?^',
-        '> ? ?^',
-        ' v?v',
-        ' 6789',
+        ' 12345 ',
+        ' ^?^   ',
+        '> ? ?^ ',
+        ' v?v   ',
+        ' 6789  ',
         ' >>>> v',
         '^    .<',
     ]
@@ -199,6 +169,6 @@ if __name__ == '__main__':
         ' @               ^  p3\\" ":<',
         '2 2345678901234567890123456789012345678',
     ]
-    bf = Befunge(code := '\n'.join(code5_arr))
+    bf = Befunge(code := '\n'.join(code3_arr))
     bf.walk_through()
     print(''.join(bf.output))
