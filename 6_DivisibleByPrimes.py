@@ -1,6 +1,7 @@
 def check(p, base):
     multiple = (base ** (p - 1)) - 1
-    for i in range(1, p):
+    print(f'multiple:{multiple}')
+    for i in range(1, len(str(multiple))):
         print(f'{i} is being checked...')
         num, sum, altsum, sign = multiple, 0, 0, 1
         while num:
@@ -10,15 +11,19 @@ def check(p, base):
             sum += remainder
             altsum += (remainder * sign)
             sign *= -1
-        if sum != altsum and sum % p == 0 or altsum % p == 0:
-            return i
-        else:
-            return False
+        print(f'sum:{sum} altsum:{altsum}')
+        if sum % p == 0 or altsum % p == 0:
+            if sum == altsum:
+                return False
+            else:
+                return i
 
 def solve(p):
     for base in range(2, 10):
+        print(f'base {base} is being checked...')
         if result := check(p, base):
             return result
+        print('\n')
 
 if __name__ == '__main__':
-    print(solve(7))
+    print(solve(41))
